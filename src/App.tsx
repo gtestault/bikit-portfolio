@@ -6,6 +6,8 @@ import src from "./baked.glb"
 import {Mesh } from "three";
 import {useSpring, a, SpringValue, } from "@react-spring/three";
 import { MagicSpinner } from "react-spinners-kit";
+import {ReactComponent as Logo} from "./logo.svg"
+import {ReactComponent} from "*.svg";
 
 function App() {
     return (
@@ -30,8 +32,8 @@ export function BikeCanvas() {
                 {modelLoading? <p>loading bikit</p> : null }
 
             </div>
-            <div className="logo">
-
+            <div className="logoContainer">
+                <Logo className="bikitLogo"/>
             </div>
             <div className="scrollContainer" onScroll={onScroll} onMouseMove={onMouseMove}>
                 <div style={{height:'500vh'}}></div>
