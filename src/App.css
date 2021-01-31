@@ -17,8 +17,23 @@
 }
 
 .scroll {
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+}
+
+.loadingSpinner {
+    font-family: 'Roboto', sans-serif;
+    color: #f5ff00;
+    font-size: 2rem;
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 300px);
+    height: 300px;
+    width: 600px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
