@@ -23,6 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "react-spring-issue-1078": "find node_modules -path \\*@react-spring/\\*/package.json -exec sed -i.bak 's/\"sideEffects\": false/\"sideEffects\": true/g' {} +",
+    "postinstall": "npm run react-spring-issue-1078",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -30,9 +32,6 @@
       "react-app",
       "react-app/jest"
     ]
-  },
-  "resolutions": {
-    "webpack": "~4.43.0"
   },
   "browserslist": {
     "production": [
