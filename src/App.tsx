@@ -7,7 +7,6 @@ import {Mesh } from "three";
 import {useSpring, a, SpringValue, } from "@react-spring/three";
 import { MagicSpinner } from "react-spinners-kit";
 import {ReactComponent as Logo} from "./logo.svg"
-import {ReactComponent} from "*.svg";
 
 function App() {
     return (
