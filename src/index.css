@@ -19,9 +19,13 @@ body {
   height: 100%;
   margin: 0;
 }
+html {
+  overflow: hidden;
+  width: 100%;
+}
 body {
   position: fixed;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 body {
