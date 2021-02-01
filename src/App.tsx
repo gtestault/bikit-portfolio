@@ -44,7 +44,7 @@ export function BikeCanvas() {
                 <Logo className="bikitLogo"/>
             </div>
             <div className="scrollContainer" onScroll={onScroll} onMouseMove={onMouseMove}>
-                <div style={{height: '8000px'}}></div>
+                <div style={{height: '9000px'}}></div>
             </div>
         </>
     )
