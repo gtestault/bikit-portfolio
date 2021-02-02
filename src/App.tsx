@@ -3,11 +3,10 @@ import './App.css';
 import {Canvas, Euler, MeshProps, useLoader, useThree} from "react-three-fiber";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import src from "./baked.glb"
-import {Mesh, TextureLoader} from "three";
+import {Mesh} from "three";
 import {useSpring, a, SpringValue,} from "@react-spring/three";
 import {MagicSpinner} from "react-spinners-kit";
 import {ReactComponent as Logo} from "./logo.svg"
-import {useAspect} from "@react-three/drei";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
@@ -210,11 +209,6 @@ function Text({children, position, opacity, color = 'white', fontSize = 410}: Te
 }
 */
 
-type ImageProps = {
-    url: string,
-    opacity: number,
-    scale: number[],
-}
 
 
 export default App;
