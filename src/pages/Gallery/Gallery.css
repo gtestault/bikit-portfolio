@@ -1,0 +1,28 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.galleryContainer {
+    margin: 2em auto 0;
+    width: 70vw;
+}
+
+@media only screen and (max-width: 480px) {
+    .galleryContainer {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 780px) {
+    .galleryContainer {
+        width: 100%;
+    }
+}
+@media only screen and (orientation: portrait) {
+    .galleryContainer {
+        width: 100%;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .galleryContainer {
+        width: 70%;
+    }
+}

@@ -2,7 +2,6 @@
 .canvasContainer {
     position: absolute;
     top: 0;
-    pointer-events: none;
 }
 .scrollContainer {
     position: fixed;
@@ -38,18 +37,6 @@
     align-items: center;
 }
 
-.logoContainer {
-    color: #f5ff00;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.bikitLogo {
-    color: #f5ff00;
-    fill: #f5ff00;
-    height: 4em;
-}
 
 .scrollHelpContainer {
     font-family: 'Roboto', sans-serif;
@@ -97,4 +84,64 @@
 }
 
 
+.navBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 3;
+}
 
+.navBar * {
+    color: #f5ff00 ;
+    font-family: 'Roboto', sans-serif ;
+    font-weight: 300;
+}
+.bikitLogo {
+    flex: 1;
+    align-self: flex-end;
+    color: #f5ff00;
+    fill: #f5ff00;
+    height: 3em;
+}
+
+
+
+.linkContainer {
+    flex: 2;
+    z-index: 4;
+    display: flex;
+    font-size: 1.2rem;
+    flex-direction: row;
+    margin-left: 1em;
+}
+
+@media screen and (min-device-width: 1000px) {
+    .linkContainer {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-device-width: 370px) {
+    .linkContainer {
+        font-size: 1.2rem;
+    }
+    .bikitLogo {
+        height: 2em;
+    }
+}
+
+.linkContainer > * + * {
+    margin-left: 1em;
+}
+
+.linkContainer > *:focus {
+   text-decoration: underline;
+
+}
+
+.highlightLink {
+    text-decoration: underline;
+}
+.noHighlight {
+    text-decoration: none;
+}

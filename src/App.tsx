@@ -7,15 +7,67 @@ import {Mesh, TextureLoader} from "three";
 import {useSpring, a, SpringValue,} from "@react-spring/three";
 import {MagicSpinner} from "react-spinners-kit";
 import {ReactComponent as Logo} from "./logo.svg"
-import TunnelPicture from "./assets/pictures/tunnel.jpg"
 import {useAspect} from "@react-three/drei";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect,
+    useLocation
+} from "react-router-dom";
+import Gallery from "./pages/Gallery/Gallery";
+
 function App() {
     return (
-        <BikeCanvas/>
+        <>
+            <Router>
+                <NavBar/>
+                <Switch>
+                    <Route path="/photogrammetry">
+                        <BikeCanvas/>
+                    </Route>
+                    <Route path="/pictures">
+                        <Gallery/>
+                    </Route>
+                    <Route path="*">
+                        <Redirect to="/photogrammetry" />
+                    </Route>
+                </Switch>
+            </Router>
+        </>
     );
+}
+
+const NavBar = () => {
+    const location = useLocation()
+    return (
+        <div className="navBar">
+            <div className="brand">
+                <Logo className="bikitLogo"/>
+            </div>
+            <div className="linkContainer">
+                <HighlightLink to="/photogrammetry" title="Photogrammetry" pathName={location.pathname} activeClassName="highlightLink"/>
+                <HighlightLink to="/pictures" title="Pictures" pathName={location.pathname} activeClassName="highlightLink"/>
+            </div>
+        </div>
+    )
+}
+
+type HighlightLinkProps = {
+    to: string
+    title: string
+    activeClassName: string
+    pathName: string
+}
+const HighlightLink = ({to, activeClassName, pathName, title}: HighlightLinkProps) => {
+    useEffect(() => {
+    }, [pathName])
+    return <Link to={to} className={pathName === to? activeClassName: "noHighlight"}>{title}</Link>
 }
 
 const NEON_COLOR = "#f5ff00";
@@ -67,9 +119,6 @@ export function BikeCanvas() {
 
             </div>
             {renderScrollHelp()}
-            <div className="logoContainer">
-                    <Logo className="bikitLogo"/>
-            </div>
             <div className="scrollContainer" onScroll={onScroll} onMouseMove={onMouseMove}>
                 <div style={{height: '9000px'}}></div>
             </div>
@@ -92,13 +141,6 @@ function Scene({top, mouse, onLoaded}: SceneProps) {
         <>
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
-
-
-            <Suspense fallback={null}>
-                {/*@ts-ignore*/}
-                <Image opacity={top.to([6000, 7000], [0, 1])} url={TunnelPicture}/>
-            </Suspense>
-
 
             {/* @ts-ignore */}
             <Suspense fallback={null}>
@@ -133,7 +175,7 @@ const BikeIt: React.FC<BikeItProps & MeshProps> = ({top, mouse, scrollMax, onLoa
     */
     return (
         //@ts-ignore
-        <a.mesh ref={bikeMesh} position={[0, -10, -40]} scale={[1, 1, 1]} rotation={top.to<Euler>(top => [0, 1.2 + top * 0.001, 0])}>
+        <a.mesh ref={bikeMesh} position={[0, -5, -40]} scale={[1, 1, 1]} rotation={top.to<Euler>(top => [0, 1.2 + top * 0.001, 0])}>
             <primitive object={gltf.scene} position={[0, 0, 0]}/>
         </a.mesh>
     )
