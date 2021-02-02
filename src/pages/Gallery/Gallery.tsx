@@ -39,7 +39,7 @@ const Gallery = () => {
     console.log(images)
     return (
         <div className="galleryContainer">
-            <ImageGallery lazyLoad={true} items={images}/>
+            <ImageGallery items={images}/>
         </div>
     )
 }
