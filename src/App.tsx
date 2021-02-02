@@ -10,9 +10,7 @@ import {ReactComponent as Logo} from "./logo.svg"
 import TunnelPicture from "./assets/pictures/tunnel.jpg"
 import {useAspect} from "@react-three/drei";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHandPointUp} from "@fortawesome/free-solid-svg-icons/faHandPointUp";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
-
 
 function App() {
     return (

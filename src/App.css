@@ -53,6 +53,7 @@
 
 .scrollHelpContainer {
     font-family: 'Roboto', sans-serif;
+    font-weight: 400;
     color: #f5ff00;
     font-size: 2em;
     position: absolute;
@@ -77,14 +78,17 @@
     margin-left: 0.3em;
     animation-name: scrollPrompt;
     animation-iteration-count: infinite;
-    animation-timing-function: ease-out;
-    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    animation-duration: 2s;
 }
 
 @keyframes scrollPrompt {
     0% {
         transform: translateY(-1em);
         opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
     }
     100% {
         transform: translateY(1em);
