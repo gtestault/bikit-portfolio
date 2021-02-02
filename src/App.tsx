@@ -216,24 +216,5 @@ type ImageProps = {
     scale: number[],
 }
 
-function Image({url, opacity,}: ImageProps) {
-    const texture = useLoader(TextureLoader, url)
-    const scale = useAspect(
-        "cover",                  // Aspect ratio: cover | ... more to come, PR's welcome ;)
-        6960,                     // Pixel-width
-        4640,                      // Pixel-height
-        0.15                         // Optional scaling factor
-    )
-    return (
-        //@ts-ignore
-
-        <a.mesh scale={scale}>
-            <planeBufferGeometry attach="geometry" args={[3, 3]}/>
-            {/*@ts-ignore*/}
-            <a.meshLambertMaterial transparent opacity={opacity} attach="material" map={texture}/>
-        </a.mesh>
-    )
-}
-
 
 export default App;
