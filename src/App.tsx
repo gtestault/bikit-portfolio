@@ -1,6 +1,6 @@
 import React, {useRef, Suspense, useCallback, useEffect, useState} from 'react';
 import './App.css';
-import {Canvas, Euler, MeshProps, useLoader, useThree } from "react-three-fiber";
+import {Canvas, Euler, MeshProps, useLoader, useThree} from "react-three-fiber";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import src from "./baked.glb"
 import {Mesh, TextureLoader} from "three";
@@ -9,7 +9,9 @@ import {MagicSpinner} from "react-spinners-kit";
 import {ReactComponent as Logo} from "./logo.svg"
 import TunnelPicture from "./assets/pictures/tunnel.jpg"
 import {useAspect} from "@react-three/drei";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHandPointUp} from "@fortawesome/free-solid-svg-icons/faHandPointUp";
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 
 function App() {
@@ -18,21 +20,47 @@ function App() {
     );
 }
 
-//const NEON_COLOR = "#f5ff00";
+const NEON_COLOR = "#f5ff00";
 
 export function BikeCanvas() {
 
     const [modelLoading, setModelLoading] = useState(true)
+    const [showScrollHelp, setShowScrollHelp] = useState(true)
     const [{top, mouse}, set] = useSpring(() => ({top: 0, mouse: [0, 0]}))
     const onMouseMove = useCallback(({clientX: x, clientY: y}) => set({mouse: [x - window.innerWidth / 2, y - window.innerHeight / 2]}), [set])
-    const onScroll = useCallback(e => set({top: e.target.scrollTop}), [set])
+    const onScroll = useCallback(e => {
+        set({top: e.target.scrollTop})
+        if (showScrollHelp) {
+            setShowScrollHelp(false)
+        }
+    }, [set, showScrollHelp])
     const handleLoaded = () => {
         setModelLoading(false)
     }
 
+    useEffect(() => {
+        if (!modelLoading) {
+            setShowScrollHelp(true)
+        }
+    }, [modelLoading])
+
+    const renderScrollHelp = () => {
+        if (modelLoading || !showScrollHelp) {
+            return null
+        }
+        return (
+            <>
+                <div className="scrollHelpContainer">
+                    <p>Scroll down to turn bike</p>
+                    <FontAwesomeIcon className="scrollPromptIcon" icon={faChevronDown} color={NEON_COLOR}/>
+                </div>
+            </>
+        )
+    }
+
     return (
         <>
-            <Canvas className="canvasContainer" >
+            <Canvas className="canvasContainer">
                 <Scene onLoaded={handleLoaded} top={top} mouse={mouse}/>
             </Canvas>
             <div className="loadingSpinner">
@@ -40,8 +68,9 @@ export function BikeCanvas() {
                 {modelLoading ? <p>loading bikit</p> : null}
 
             </div>
+            {renderScrollHelp()}
             <div className="logoContainer">
-                <Logo className="bikitLogo"/>
+                    <Logo className="bikitLogo"/>
             </div>
             <div className="scrollContainer" onScroll={onScroll} onMouseMove={onMouseMove}>
                 <div style={{height: '9000px'}}></div>
@@ -82,8 +111,6 @@ function Scene({top, mouse, onLoaded}: SceneProps) {
 }
 
 
-
-
 type BikeItProps = {
     top: SpringValue<number>
     mouse: SpringValue<number[]>
@@ -108,7 +135,7 @@ const BikeIt: React.FC<BikeItProps & MeshProps> = ({top, mouse, scrollMax, onLoa
     */
     return (
         //@ts-ignore
-        <a.mesh ref={bikeMesh} position={[0, -10, -40]} scale={[1, 1, 1]} rotation={top.to<Euler>(top => [0, 1.2+ top * 0.001, 0])}>
+        <a.mesh ref={bikeMesh} position={[0, -10, -40]} scale={[1, 1, 1]} rotation={top.to<Euler>(top => [0, 1.2 + top * 0.001, 0])}>
             <primitive object={gltf.scene} position={[0, 0, 0]}/>
         </a.mesh>
     )
@@ -148,7 +175,8 @@ type ImageProps = {
     opacity: number,
     scale: number[],
 }
-function Image({ url, opacity, }: ImageProps) {
+
+function Image({url, opacity,}: ImageProps) {
     const texture = useLoader(TextureLoader, url)
     const scale = useAspect(
         "cover",                  // Aspect ratio: cover | ... more to come, PR's welcome ;)
@@ -160,9 +188,9 @@ function Image({ url, opacity, }: ImageProps) {
         //@ts-ignore
 
         <a.mesh scale={scale}>
-            <planeBufferGeometry attach="geometry" args={[3, 3]} />
+            <planeBufferGeometry attach="geometry" args={[3, 3]}/>
             {/*@ts-ignore*/}
-            <a.meshLambertMaterial transparent opacity={opacity} attach="material" map={texture} />
+            <a.meshLambertMaterial transparent opacity={opacity} attach="material" map={texture}/>
         </a.mesh>
     )
 }
